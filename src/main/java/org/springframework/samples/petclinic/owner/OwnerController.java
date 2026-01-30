@@ -166,11 +166,17 @@ class OwnerController {
 	@GetMapping("/owners/{ownerId}")
 	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
+
+
 		Optional<Owner> optionalOwner = this.owners.findById(ownerId);
+// Fetch owner details by ID and handle invalid owner cases gracefully
 		Owner owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
-				"Owner not found with id: " + ownerId + ". Please ensure the ID is correct "));
-		mav.addObject(owner);
+			"Owner not found with id: " + ownerId +
+				". Please ensure the ID is correct. (Handled by Akshit Singh)"));
+		mav.addObject("owner", owner);
+
 		return mav;
+
 	}
 
 }
